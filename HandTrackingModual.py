@@ -37,18 +37,7 @@ class handDetector():
                 cx, cy = int(lm.x * w), int(lm.y * h)
                 #print(id, cx, cy)
                 lmList.append([id, cx, cy])
-                # return cx, cy
-
-                #if id == 8:
-                    #print(id, cx, cy)
-                    #if draw:
-                        #cv2.circle(frame, (cx, cy), 15, (255, 0, 0), cv2.FILLED)
-                    #mouse.move(cy, cy)
-                #if id == 4:
-                    #print(id, cx, cy)
-                    #if draw:
-                        #cv2.circle(frame, (cx, cy), 15, (255, 0, 0), cv2.FILLED)
-                    #mouse.move(cy, cy)
+               
         return lmList
 
 
