@@ -6,18 +6,26 @@ import HandTrackingModual as htm
 import math
 import numpy as np
 
-
+##############################
+# For the FPS
 pTime = 0
 cTime = 0
+##############################
 cap = cv2.VideoCapture('Handvid.mp4')
+##############################
+# Change this to your monitor's screen size
 width = 1600
 height = 900
 dim = (width, height)
+##############################
+# For smoothening the mouse movement
 smoothening = 5
 plocx, plocy = 0, 0
 clocx, clocy = 0, 0
+##############################
+# To prevent to much clicking
 mouseClicked = False
-
+##############################
 if not cap.isOpened():
     print("Could not open webcam")
 detector = htm.handDetector(max_hands=1, min_detect_conf=0.6, min_track_conf=0.4)
@@ -28,9 +36,6 @@ while True:
     frame = detector.findHands(frame)
     lmList = detector.findPosition(frame)
     if len(lmList) != 0:
-
-        #bounds = cv2.boundingRect(lmList)
-        #print(bounds)
         print(f"{lmList[8]}")
         clocx = plocx + (lmList[9][1] - plocx) / smoothening
         clocy = plocy + (lmList[9][2] - plocy) / smoothening
@@ -45,6 +50,8 @@ while True:
         cv2.line(frame, (x1, y1), (x2, y2), (155, 234, 54), 3)
         length = math.hypot(x2 - x1, y2 - y1)
         print(length)
+        # If the index finger is up, don't click, if it's down, click once. However, what if you want to click and drag? Move the thumb over to the palm.
+        # Remember, I'm kind of new to Python, so not all of it will work.
         if lmList[8][2] > lmList[6][2]:
             if not mouseClicked:
                 mouse.click()
